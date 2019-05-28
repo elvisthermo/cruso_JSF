@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templetes/modelosTemplete.xhtml">
+
+    <ui:define name="menu">
+        <ui:include src="/includes/MenuPrincipal.xhtml"/>
+    </ui:define>
+
+    <ui:define name="conteudo">
+        <h:form id='frmFabListagem'>
+            <p:dataTable id='tblFabricantes' emptyMessage="Nenhum registro econtrado"
+                         value="#{MBFabricante.itens}"
+                         var="item"
+                         paginator="true"
+                         rows="5">
+                
+                <f:facet name="header">
+                    fabricante listagem
+                </f:facet> 
+                
+                <p:column headerText="Codigo" filterBy="#{item.codigo}" sortBy="#{item.codigo}">
+                    <h:outputText value="#{item.codigo}"  />
+
+                </p:column>
+                <p:column headerText="Descrição" sortBy="#{item.descricao}">
+                    <h:outputText value="#{item.descricao}"/>
+                </p:column>
+                
+                <f:facet name="footer">
+                    <p:commandButton value="Novo" actionListener="#{MBFabricante.prepareNew}" oncomplete="PF('dialogNovo').show();" update=":frmFabNovo:pnlFabNovo"/>
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+        
+        <p:dialog modal="true" 
+            header="Novo Fabricamte" 
+            widgetVar="dialogNovo"
+                  closable="false" appendTo="@(body)"
+                  draggable="false">
+            <h:form id="frmFabNovo">
+                <h:panelGrid id="pnlFabNovo" columns="2">
+                <p:outputLabel value="Descricão:"/>
+                <p:inputText size="30" maxlength="50" value="#{MBFabricante.fabricante.descricao}"/>
+            </h:panelGrid>
+             <h:panelGrid columns="2">
+                 <p:commandButton value="Gravar" actionListener="#{MBFabricante.novo}" oncomplete="PF('dialogNovo').hide();" update=":frmFabListagem:tblFabricantes"/>
+                 <p:commandButton value="Cancelar" onclick="PF('dialogNovo').hide();"/>
+                 
+            </h:panelGrid>
+            </h:form>
+
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
