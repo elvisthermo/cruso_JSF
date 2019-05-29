@@ -1,14 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.com.drogariaWeb.util;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Thermo
  */
 public class JSFUtil {
+    public static void adicionarMensagemSucesso(String mensagem) {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,mensagem,mensagem);
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        contexto.addMessage(null, msg);
     
+    }
+    
+    public static void adicionarMensagemErro(String menssagem){
+         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,menssagem,menssagem);
+         FacesContext contexto = FacesContext.getCurrentInstance();
+         contexto.addMessage(null, msg);
+        
+    }
 }

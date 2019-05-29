@@ -31,12 +31,23 @@
                     <h:outputText value="#{item.descricao}"/>
                 </p:column>
                 
+                <!--columm excluir-->
+                <p:column>
+                    <p:commandButton icon="ui-icon-trash" actionListener="#{MBFabricante.prepararExcluir}" oncomplete="PF('dlgFabExcluir').show();" update=":frmFabExcluir:pnlFabExcluir"/>
+                    <p:commandButton icon="ui-icon-pencil" actionListener="#{MBFabricante.prepararEditar}"
+                                     oncomplete="PF('dlgFabEditar').show();" 
+                                     update=":frmFabEditar:pnlFabEditar"/>
+
+                </p:column>
+                
+                
                 <f:facet name="footer">
                     <p:commandButton value="Novo" actionListener="#{MBFabricante.prepareNew}" oncomplete="PF('dialogNovo').show();" update=":frmFabNovo:pnlFabNovo"/>
                 </f:facet>
             </p:dataTable>
         </h:form>
         
+        <!--dialog novofabricante-->
         <p:dialog modal="true" 
             header="Novo Fabricamte" 
             widgetVar="dialogNovo"
@@ -48,12 +59,67 @@
                 <p:inputText size="30" maxlength="50" value="#{MBFabricante.fabricante.descricao}"/>
             </h:panelGrid>
              <h:panelGrid columns="2">
-                 <p:commandButton value="Gravar" actionListener="#{MBFabricante.novo}" oncomplete="PF('dialogNovo').hide();" update=":frmFabListagem:tblFabricantes"/>
+                 <p:commandButton value="Gravar" actionListener="#{MBFabricante.novo}" 
+                                  oncomplete="PF('dialogNovo').hide();" 
+                                  update=":frmFabListagem:tblFabricantes :msgGlobal"/>
                  <p:commandButton value="Cancelar" onclick="PF('dialogNovo').hide();"/>
                  
             </h:panelGrid>
             </h:form>
+        </p:dialog>
+        
+        
+            <!--exclusão dialog-->
+        <p:dialog widgetVar="dlgFabExcluir" closable="false"
+                  draggable="false" resizable="false"
+                  modal="true" appendTo="@(body)"
+                  header="Fabricante Excluir">
+                  
+            <h:form id="frmFabExcluir">
+                <h:panelGrid columns="2" id="pnlFabExcluir">
+                    <h:outputText value="Codigo:"/>
+                    <h:outputText value="#{MBFabricante.fabricante.codigo}"/>
+                
+                    <h:outputText value="Descrição:"/>
+                    <h:outputText value="#{MBFabricante.fabricante.descricao}"/>
+     
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Excluir"
+                                     actionListener="#{MBFabricante.excluir}"
+                                     oncomplete="PF('dlgFabExcluir').hide();"
+                                     update=":frmFabListagem:tblFabricantes :msgGlobal" />
+                    <p:commandButton value="Cancelar" onclick="PF('dlgFabExcluir').hide();"/> 
+                </h:panelGrid>
+                
+            </h:form>
+            
+            
+        </p:dialog>
+            
+         <!--edição dialog-->
+        <p:dialog widgetVar="dlgFabEditar" closable="false"
+                  draggable="false" resizable="false"
+                  modal="true" appendTo="@(body)"
+                  header="Fabricante Editar">    
+            <h:form id="frmFabEditar">
+                <h:panelGrid id="pnlFabEditar" columns="2">
+                     <h:outputText value="Codigo:"/>
+                    <h:outputText value="#{MBFabricante.fabricante.codigo}"/>
+                
+                    <h:outputText value="Descrição:"/>
+                    <h:inputText value="#{MBFabricante.fabricante.descricao}" size="30" maxlength="50"/>
+                </h:panelGrid>
+                <h:panelGrid>
+                    <p:commandButton value="editar"
+                                     actionListener="#{MBFabricante.editar}"
+                                     oncomplete ="PF('digFabEditar').hide();"
+                                    update=":frmFabListagem:tblFabricantes :msgGlobal" />
+                           <p:commandButton value="cancelar" onclick="PF('digFabEditar').hide();"/>
 
+                </h:panelGrid>
+            </h:form>
+            
         </p:dialog>
     </ui:define>
 

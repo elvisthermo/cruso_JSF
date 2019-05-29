@@ -27,7 +27,7 @@ public class FabricanteDAO {
 
 	}
 
-	private void excluir(Fabricante f) throws SQLException {
+	public void excluir(Fabricante f) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM fabricante ");
 		sql.append("WHERE codigo = ? ");
@@ -128,6 +128,7 @@ public class FabricanteDAO {
 		return retorno;
 
 	}
+        
 
 //	public static void main(String[] args) {
 //
