@@ -6,7 +6,6 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-
 	<h:form>
 		<p:menubar>
 			<p:submenu label="Arquivo">
@@ -15,8 +14,8 @@
 			</p:submenu>
 
 			<p:submenu label="Cadastros">
-				<p:menuitem value="Fabricantes" />
-				<p:menuitem value="Produtos" />
+                            <p:menuitem value="Fabricantes" outcome="/pages/fabricante.xhtml"/>
+				<p:menuitem value="Produtos" outcome="/pages/Produto.xhtml" />
 			</p:submenu>
 
 			<p:submenu label="Ajuda">
